@@ -1,0 +1,10 @@
+= Adresse
+
+Einfache Adresse mit Straße, Hausnummer und Stadt.
+
+[.role=Entity]
+== Address
+
+* street : string(50)
+* plz : string(5), not null
+* city : string(50)

@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.thaso.demo.payara.example</groupId>
+        <artifactId>greeting</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>de.thaso.demo.payara.example</groupId>
+    <artifactId>greeting-web</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>greeting-web</name>
+
+    <properties>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>de.thaso.demo.payara.example</groupId>
+            <artifactId>greeting-business</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-payara</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <alias>payara</alias>
+                                    <name>payara/server-full:5.2022.2</name>
+                                    <run>
+                                        <hostname>payara</hostname>
+                                        <ports>
+                                            <port>8081:8080</port>
+                                        </ports>
+                                        <volumes>
+                                            <bind>
+                                                <volume>
+                                                    ${project.build.directory}/${project.name}.war:/opt/payara/deployments/${project.name}.war
+                                                </volume>
+                                            </bind>
+                                        </volumes>
+                                        <wait>
+                                            <log>deploy AdminCommandApplication deployed with name ${project.name}</log>
+                                            <time>25000</time>
+                                        </wait>
+                                        <log>
+                                            <prefix>WEB:</prefix>
+                                            <color>yellow</color>
+                                        </log>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>remove-it-database</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

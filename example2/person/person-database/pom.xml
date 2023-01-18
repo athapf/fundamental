@@ -1,0 +1,149 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>de.thaso.demo.payara.example</groupId>
+        <artifactId>person</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <groupId>de.thaso.demo.payara.example</groupId>
+    <artifactId>person-database</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>person-database</name>
+
+    <properties>
+        <!--<eclipselink.version>3.0.1</eclipselink.version>-->
+        <openjpa.version>3.2.2</openjpa.version>
+        <liquibase.version>4.14.0</liquibase.version>
+        <dbunit.version>2.7.3</dbunit.version>
+        <h2.version>2.1.214</h2.version>
+    </properties>
+
+    <dependencies>
+<!--
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>${eclipselink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+-->
+
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>${liquibase.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${h2.version}</version>
+            <scope>compile</scope>
+         </dependency>
+
+        <dependency>
+            <groupId>org.apache.openjpa</groupId>
+            <artifactId>openjpa-all</artifactId>
+            <version>${openjpa.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>${dbunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.12.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.12.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.12.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.2.2</version>
+
+                <configuration>
+                    <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+                    <outputDirectory>target/docs/asciidoc</outputDirectory>
+                    <backend>docbook</backend>
+                    <doctype>book</doctype>
+                    <attributes>
+                        <project-version>${project.version}</project-version>
+                        <!--<stylesheet>my-theme.css</stylesheet>-->
+                    </attributes>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>output-doc</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!--
+                                <dependencies>
+                                    <dependency>
+                                        <groupId>org.asciidoctor.maven</groupId>
+                                        <artifactId>my-asciidoctor-extensions</artifactId>
+                                        <version>1.0.0</version>
+                                    </dependency>
+                                </dependencies>
+                -->
+            </plugin>
+
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.17</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--<xincludeSupported>true</xincludeSupported>-->
+                    <includes>*.xml</includes>
+                    <sourceDirectory>${project.build.directory}/docs/asciidoc</sourceDirectory>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>5.0-all</version>
+                        <classifier>resources</classifier>
+                        <type>zip</type>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

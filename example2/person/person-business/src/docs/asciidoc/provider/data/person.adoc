@@ -1,0 +1,28 @@
+= Person
+
+Person umfasst Name und Vorname sowie die zugehörige Adresse
+und Notizen bzw. Bemerkungen zur Person.
+
+[.role=field]
+== Vorname
+
+[cols=2*]
+|===
+|key     | value
+|name    |firstName
+|type    |string
+|length  |50
+|===
+
+## Adresse
+
+firstName : string(50) :: erster Vorname
+sureName : string(50) :: _not null_ Familienname
+
+[.Entity]
+## Note
+
+created : date :: _not null_ Datum der Erstellung
+state : State :: Enumeration der Zustände
+tickets : date[] :: Datumsliste, wann 9-Euro-Ticket ausgestellt wurde
+text : string(2000) :: Bemerkungstext

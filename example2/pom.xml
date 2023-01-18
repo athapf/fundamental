@@ -1,0 +1,85 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.thaso.demo.payara.example</groupId>
+    <artifactId>example</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>documentation</module>
+        <module>greeting</module>
+        <module>person</module>
+    </modules>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.asciidoctor</groupId>
+                <artifactId>asciidoctor-maven-plugin</artifactId>
+                <version>2.2.2</version>
+
+                <configuration>
+                    <sourceDirectory>src/docs/asciidoc</sourceDirectory>
+                    <outputDirectory>target/docs/asciidoc</outputDirectory>
+                    <backend>docbook</backend>
+                    <doctype>book</doctype>
+                    <attributes>
+                        <project-version>${project.version}</project-version>
+                        <!--<stylesheet>my-theme.css</stylesheet>-->
+                    </attributes>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <id>output-doc</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>process-asciidoc</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <!--
+                                <dependencies>
+                                    <dependency>
+                                        <groupId>org.asciidoctor.maven</groupId>
+                                        <artifactId>my-asciidoctor-extensions</artifactId>
+                                        <version>1.0.0</version>
+                                    </dependency>
+                                </dependencies>
+                -->
+            </plugin>
+
+            <plugin>
+                <groupId>com.agilejava.docbkx</groupId>
+                <artifactId>docbkx-maven-plugin</artifactId>
+                <version>2.0.17</version>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate-pdf</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!--<xincludeSupported>true</xincludeSupported>-->
+                    <includes>*.xml</includes>
+                    <sourceDirectory>${project.build.directory}/docs/asciidoc</sourceDirectory>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>net.sf.docbook</groupId>
+                        <artifactId>docbook-xml</artifactId>
+                        <version>5.0-all</version>
+                        <classifier>resources</classifier>
+                        <type>zip</type>
+                        <scope>runtime</scope>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
+</project>

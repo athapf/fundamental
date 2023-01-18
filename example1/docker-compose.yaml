@@ -38,7 +38,7 @@ services:
     image: thaso-example/fundamental-producer:1.0
     build:
       context: source
-      dockerfile: src/main/docker/Dockerfile.jvm
+      dockerfile: source/src/main/docker/Dockerfile.jvm
     depends_on:
       - kafka
     ports:
@@ -52,7 +52,7 @@ services:
     image: thaso-example/fundamental-consumer:1.0
     build:
       context: worker
-      dockerfile: src/main/docker/Dockerfile.jvm
+      dockerfile: worker/src/main/docker/Dockerfile.jvm
     depends_on:
       - producer
     ports:

@@ -1,0 +1,44 @@
+= Datenbeschreibung
+
+[role="datacatalog"]
+== Datenkatalog
+
+Workshops erstellen, verwalten und durchführen
+
+=== Entity [base]#StandardIdEntity# (template)
+
+Id:: [type]#Long# [sql]#decimal(18,0)#
+
+  Bezeichnung des Workshops
+
+
+=== Entity [entity]#Workshop# (based on [basetype]#StandardIdEntity#)
+
+Title:: [type]#String# [sql]#varchar(50)#
+
+  Bezeichnung des Workshops
+
+
+Number:: [type]#Integer# [sql]#decimal(4,0)#
+
+  4-stelliges Kennzeichen des Workshops, ist eindeutig
+
+
+Content:: [type]#String# [sql]#varchar(4000)#
+
+  Kurze Beschreibung und Inhalt des Workshops
+
+
+Duration:: [type]#Integer# [sql]#decimal(2,0)#
+
+  Dauer des Workshops in Tage.
+
+
+DayOfEvent:: [type]#Date# [sql]#date#
+
+  Datum, wann der Workshop startet bzw. bei eintägige Workshops wann er statt findet.
+
+
+Attendance:: [type]#Integer# [sql]#decimal(4,0)#
+
+  Anzahl der Teilnehmer

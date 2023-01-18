@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+    <T_DEMO ID="1" NAME="Müller, Max"/>
+    <T_DEMO ID="2" NAME="Rabe, Ralf" ACTIVE="true"/>
+</dataset>

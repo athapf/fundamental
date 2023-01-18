@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <Console name="LogInJSON" target="SYSTEM_OUT">
+            <JsonLayout complete="false" eventEOL="true" compact="true"></JsonLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
+
+<!--
+    <logger name="de.thaso" level="debug" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.dbunit" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="org.liquibase" level="info" additivity="false">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+	<root level="error">
+		<appender-ref ref="STDOUT" />
+	</root>
+-->
